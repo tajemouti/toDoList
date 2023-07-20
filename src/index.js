@@ -29,3 +29,14 @@ const tasks = [
     index: 4,
   },
 ];
+
+tasks.forEach((task) => {
+    const list = `
+      <div class="task">
+          <input type="checkbox">
+          <div class="list">${task.description}</div>
+          <button class="move" type="button"></button>
+      <div>
+    `;
+    taskList.insertAdjacentHTML('beforeend', list);
+  });
