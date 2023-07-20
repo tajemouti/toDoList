@@ -1,4 +1,4 @@
-import './styles/style.css';
+import './style.css';
 
 const taskList = document.getElementById('tasks');
 
@@ -31,12 +31,12 @@ const tasks = [
 ];
 
 tasks.forEach((task) => {
-    const list = `
+  const list = `
       <div class="task">
           <input type="checkbox">
           <div class="list">${task.description}</div>
           <button class="move" type="button"></button>
       <div>
     `;
-    taskList.insertAdjacentHTML('beforeend', list);
-  });
+  taskList.insertAdjacentHTML('beforeend', list);
+});
