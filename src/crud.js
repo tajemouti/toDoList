@@ -40,4 +40,18 @@ const displayList = () => {
     displayList();
   });
 
+  taskList.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.move');
+    if (!clicked) return;
+    const tasks = JSON.parse(localStorage.getItem('listItem')) || [];
+    const listNum = +clicked.dataset.remove;
+    const filtered = tasks.filter((task) => task.index !== listNum);
+    let filtOrder = [];
+    filtered.forEach((task, count) => {
+      task.index = count;
+      filtOrder = [...filtOrder, task];
+    });
+    localStorage.setItem('listItem', JSON.stringify(filtOrder));
+    displayList();
+  });
   
