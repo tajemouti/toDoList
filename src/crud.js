@@ -55,3 +55,15 @@ const displayList = () => {
     displayList();
   });
   
+  taskList.addEventListener('click', (e) => {
+    const clicked = e.target.closest('.list');
+    if (!clicked) return;
+    clicked.addEventListener('keyup', () => {
+      const tasks = JSON.parse(localStorage.getItem('listItem')) || [];
+      const listNum = +clicked.dataset.desc;
+      const task = tasks.find((task) => task.index === listNum);
+      task.description = clicked.value;
+      localStorage.setItem('listItem', JSON.stringify(tasks));
+    });
+  });
+    
