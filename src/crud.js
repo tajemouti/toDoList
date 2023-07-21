@@ -1,4 +1,6 @@
 const taskList = document.getElementById('tasks');
+const form = document.getElementById('form');
+const taskInput = document.getElementById('taskInput');
 
 const displayList = () => {
     const tasks = JSON.parse(localStorage.getItem('listItem')) || [];
@@ -17,3 +19,25 @@ const displayList = () => {
       taskList.insertAdjacentHTML('beforeend', list);
     });
   };
+
+  const saveStorage = () => {
+    const tasks = JSON.parse(localStorage.getItem('listItem')) || [];
+    const tasksItem = taskInput.value;
+    taskInput.value = '';
+    if (tasksItem === null) return;
+    const task = {
+      description: tasksItem,
+      completed: false,
+      index: tasks.length,
+    };
+    const filtered = [...tasks, task];
+    localStorage.setItem('listItem', JSON.stringify(filtered));
+  };
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    saveStorage();
+    displayList();
+  });
+
+  
