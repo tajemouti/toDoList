@@ -1,42 +1,24 @@
 import './style.css';
+import './crud.js';
 
 const taskList = document.getElementById('tasks');
 
-const tasks = [
-  {
-    description: 'Buy a new motor for the RC plane',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Mount the RC motor',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Configure the gyroscope',
-    completed: false,
-    index: 2,
-  },
-  {
-    description: 'Test the RC plane before flight',
-    completed: false,
-    index: 3,
-  },
-  {
-    description: 'Fly the RC plane',
-    completed: false,
-    index: 4,
-  },
-];
+const loadStorage = () => {
+  const tasks = JSON.parse(localStorage.getItem('listItem')) || [];
+  if (tasks === null) return;
 
-tasks.forEach((task) => {
-  const list = `
-      <div class="task">
-          <input type="checkbox">
-          <div class="list">${task.description}</div>
-          <button class="move" type="button"></button>
-      <div>
+  const sortedList = tasks.slice().sort((a, b) => a.index - b.index);
+  sortedList.forEach((task) => {
+    const list = `
+      <div class="task task-${task.index}">
+        <input type="checkbox" data-btn="${task.index}">
+        <input type="text" class="list" value="${task.description}" data-desc="${task.index}">
+        <button class="move" data-remove="${task.index}"></button>
+      </div>
     `;
-  taskList.insertAdjacentHTML('beforeend', list);
-});
+
+    taskList.insertAdjacentHTML('beforeend', list);
+  });
+};
+
+loadStorage();
