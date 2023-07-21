@@ -5,9 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <%= htmlWebpackPlugin.options.title %>
-    </title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 
 <body>
@@ -16,10 +14,10 @@
             <h1>Today's To Do</h1>
             <button id="refresh" type="button"></button>
         </div>
-        <div class="containers">
-            <input type="text" placeholder="Add to your list...">
-            <button id="enter" type="button"></button>
-        </div>
+        <form id="form" class="containers" action="">
+            <input id="taskInput" type="text" placeholder="Add to your list..." required>
+            <button id="enter" type="submit"></button>
+        </form>
         <div id="tasks"></div>
         <div class="containers clear">
             <button id="clear" type="button">Clear all completed</button>
