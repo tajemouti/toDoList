@@ -12,4 +12,15 @@ const barDone = (e) => {
   localStorage.setItem('listItems', JSON.stringify(tasks));
 };
 
-export default { barDone };
+const clearDone = () => {
+  const tasks = JSON.parse(localStorage.getItem('listItems')) || [];
+  const filtered = tasks.filter((task) => task.completed === false);
+  let filtOrder = [];
+  filtered.forEach((task, count) => {
+    task.index = count;
+    filtOrder = [...filtOrder, task];
+  });
+  localStorage.setItem('listItems', JSON.stringify(filtOrder));
+};
+
+export { barDone, clearDone };
