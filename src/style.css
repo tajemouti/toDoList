@@ -13,8 +13,15 @@
 .containers {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #e2dbdb;
   padding: 24px;
+}
+
+#refresh {
+  background: url('/src/assets/refresh.png');
+  background-size: contain;
+  opacity: 0.8;
 }
 
 button {
@@ -54,6 +61,22 @@ input {
   outline: 0;
 }
 
+.square {
+  display: none;
+  background: url('/src/assets/checkbox.png');
+  background-size: contain;
+}
+
+.done {
+  display: none;
+  background: url('/src/assets/checked.png');
+  background-size: contain;
+}
+
+.active {
+  display: block;
+}
+
 .containers input {
   width: 90%;
   padding: 8px;
@@ -61,17 +84,15 @@ input {
   border: none;
 }
 
-#refresh {
-  background: url('/src/assets/refresh.png');
-  background-size: contain;
-  opacity: 0.8;
+.line {
+  text-decoration: line-through;
 }
 
 .move {
   background: url('/src/assets/move.png');
   background-size: contain;
   position: absolute;
-  top: 8px;
+  top: 16px;
   right: 24px;
 }
 
@@ -93,3 +114,6 @@ input {
   font-weight: 700;
   width: 100%;
 }
+
+
+
