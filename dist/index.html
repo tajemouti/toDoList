@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+<script defer src="bundle.js"></script></head>
+
+<body>
+    <div id="container">
+        <div class="containers">
+            <h1>Today's To Do</h1>
+            <button id="refresh" type="button"></button>
+        </div>
+        <form id="form" class="containers" action="">
+            <input id="taskInput" type="text" placeholder="Add to your list..." required>
+            <button id="enter" type="submit"></button>
+        </form>
+        <div id="tasks"></div>
+        <div class="containers clear">
+            <button id="clear" type="button">Clear all completed</button>
+        </div>
+    </div>
+</body>
+
+</html>
