@@ -6,6 +6,7 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
+  - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -52,6 +53,11 @@ Visual Studia Code, HTML/JavaScript linters, ES6, Webpack.
 - **[Single Page application]**
 - **[JavaScript Modules]**
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- [Live Demo Link](https://tajemouti.github.io/toDoList/dist/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,6 +122,8 @@ npm run dev
 ## 🔭 Future Features <a name="future-features"></a>
 
 - [ ] **[A medium fedility wire-frame application]**
+- [ ] **[Interactive To-Do List application]**
+- [ ] **[Secure deployment using GitHub Pages]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
