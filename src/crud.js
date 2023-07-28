@@ -1,75 +1,148 @@
-const taskList = document.getElementById('tasks');
-const form = document.getElementById('form');
-const taskInput = document.getElementById('taskInput');
+export default class MyTask {
+  constructor(description) {
+    this.description = description;
+  }
 
-const displayList = () => {
-  const tasks = JSON.parse(localStorage.getItem('listItems')) || [];
-  if (tasks === null) return;
-  const sortedList = tasks.slice().sort((a, b) => a.index - b.index);
-  taskList.innerHTML = '';
-  sortedList.forEach((task) => {
-    const { completed } = task;
-    const checked = completed ? 'active' : '';
-    const lineT = completed ? 'line' : '';
-    const unfinished = !completed ? 'active' : '';
-    const list = `
-        <div class="task task-${task.index}">
-          <div class="checkbox" data-btn="${task.index}">
-            <button class="square ${unfinished}"></button>
-            <button class="done ${checked}"></button>
-          </div>
-          <input type="text" class="list ${lineT}" value="${task.description}" data-desc="${task.index}"/>
-          <button class="move" data-remove="${task.index}"></button>
-        </div>
-      `;
-    taskList.insertAdjacentHTML('beforeend', list);
-  });
-};
+  static clearInput = () => {
+    const taskInput = document.getElementById('taskInput');
+    taskInput.value = '';
+    return true;
+  }
 
-const addTask = (e) => {
-  e.preventDefault();
-  const tasks = JSON.parse(localStorage.getItem('listItems')) || [];
-  const tasksItem = taskInput.value;
-  taskInput.value = '';
-  if (tasksItem === null) return;
-  const task = {
-    description: tasksItem,
-    completed: false,
-    index: tasks.length,
+  static getTask = () => {
+    let listItem = [];
+    const task = localStorage.getItem('tasksItem');
+    if (task === null) {
+      localStorage.setItem('tasksItem', JSON.stringify(listItem));
+    }
+    listItem = JSON.parse(localStorage.getItem('tasksItem'));
+    return listItem;
+  }
+
+  static getIndex = () => {
+    const listItem = MyTask.getTask();
+    let index = 0;
+    if (listItem === null) {
+      return index + 1;
+    }
+    index = listItem.length + 1;
+    return index;
+  }
+
+  static updateIndex = () => {
+    const listItem = MyTask.getTask();
+    listItem.forEach((item) => {
+      const count = listItem.findIndex((obj) => obj === item);
+      item.index = count + 1;
+    });
+    localStorage.setItem('tasksItem', JSON.stringify(listItem));
+  }
+
+  addTask = () => {
+    const task = MyTask.getTask();
+    const index = MyTask.getIndex();
+    const tasksItem = {
+      index,
+      description: this.description,
+      completed: false,
+    };
+
+    if (task === null) {
+      task.push(tasksItem);
+      localStorage.setItem('tasksItem', JSON.stringify(task));
+    }
+    let newlistItem = JSON.parse(localStorage.getItem('tasksItem'));
+    newlistItem = [...task, tasksItem];
+    localStorage.setItem('tasksItem', JSON.stringify(newlistItem));
+    MyTask.clearInput();
+    MyTask.displayList();
+    MyTask.updateIndex();
+  }
+
+  static displayList() {
+    const listItem = MyTask.getTask();
+    const taskList = document.getElementById('tasks');
+    let list = '';
+    listItem.forEach((tasksItem) => {
+      list += `<li class="task">
+                <input type="checkbox" id="${tasksItem.index}" class="checkbox">  
+                <input type="text" class="list" value="${tasksItem.description}">
+                <button class="move"></button>
+              </li>`;
+    });
+    taskList.innerHTML = list;
+    MyTask.addEventListenersToListItems();
+    MyTask.updateIndex();
+    MyTask.checkedTask();
+  }
+
+  static removeTask = (index) => {
+    const listItem = MyTask.getTask();
+    listItem.splice(index, 1);
+    localStorage.setItem('tasksItem', JSON.stringify(listItem));
+    MyTask.addEventListenersToListItems();
+    MyTask.displayList();
+    MyTask.updateIndex();
+  }
+
+  static updateTask = (index, value) => {
+    const listItem = MyTask.getTask();
+    listItem.forEach((item) => {
+      const count = listItem.findIndex((obj) => obj === item);
+      if (index === count) {
+        item.description = value;
+      }
+      localStorage.setItem('tasksItem', JSON.stringify(listItem));
+    });
+    MyTask.updateIndex();
+  }
+
+  static completed = (index, value) => {
+    const listItem = MyTask.getTask();
+    listItem[index - 1].completed = value;
+    localStorage.setItem('tasksItem', JSON.stringify(listItem));
+    MyTask.updateIndex();
+  }
+
+  static clearCompleted = () => {
+    const listItem = MyTask.getTask();
+    const uncompleted = listItem.filter((tasksItem) => tasksItem.completed === false);
+    localStorage.setItem('tasksItem', JSON.stringify(uncompleted));
+    MyTask.displayList();
+  }
+
+  static checkedTask = () => {
+    const listItem = MyTask.getTask();
+    listItem.forEach((item) => {
+      if (item.completed === true) {
+        document.querySelector(`#\\3${item.index}`).checked = true;
+        document.querySelector(`#\\3${item.index}`).nextElementSibling.classList.toggle('cross');
+      }
+    });
+  }
+
+  static refresh = () => {
+    window.location.reload();
+  }
+
+  static addEventListenersToListItems = () => {
+    document.querySelectorAll('.checkbox').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        link.nextElementSibling.classList.toggle('cross');
+        MyTask.completed(link.id, e.target.checked);
+      });
+    });
+    document.querySelectorAll('.list').forEach((link, index) => {
+      link.addEventListener('keyup', (e) => {
+        e.preventDefault();
+        MyTask.updateTask(index, e.target.value);
+      });
+    });
+    document.querySelectorAll('.move').forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        MyTask.removeTask(index);
+      });
+    });
   };
-  const filtered = [...tasks, task];
-  localStorage.setItem('listItems', JSON.stringify(filtered));
-  displayList();
-};
-form.addEventListener('submit', addTask);
-
-const removeTask = (e) => {
-  const clicked = e.target.closest('.move');
-  if (!clicked) return;
-  const tasks = JSON.parse(localStorage.getItem('listItems')) || [];
-  const listNum = +clicked.dataset.remove;
-  const filtered = tasks.filter((task) => task.index !== listNum);
-  let filtOrder = [];
-  filtered.forEach((task, count) => {
-    task.index = count;
-    filtOrder = [...filtOrder, task];
-  });
-  localStorage.setItem('listItems', JSON.stringify(filtOrder));
-  displayList();
-};
-taskList.addEventListener('click', removeTask);
-
-const editTask = (e) => {
-  const clicked = e.target.closest('.list');
-  if (!clicked) return;
-  clicked.addEventListener('keyup', () => {
-    const tasks = JSON.parse(localStorage.getItem('listItems')) || [];
-    const listNum = +clicked.dataset.desc;
-    const task = tasks.find((task) => task.index === listNum);
-    task.description = clicked.value.trim();
-    localStorage.setItem('listItems', JSON.stringify(tasks));
-  });
-};
-taskList.addEventListener('click', editTask);
-
-export default displayList;
+}

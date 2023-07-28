@@ -42,14 +42,6 @@ button:active {
   opacity: 0.5;
 }
 
-.task {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #e2dbdb;
-  padding-left: 24px;
-  position: relative;
-}
-
 .list {
   padding: 18px;
   font-size: 18px;
@@ -61,20 +53,8 @@ input {
   outline: 0;
 }
 
-.square {
-  display: none;
-  background: url('/src/assets/checkbox.png');
-  background-size: contain;
-}
-
-.done {
-  display: none;
-  background: url('/src/assets/checked.png');
-  background-size: contain;
-}
-
-.active {
-  display: block;
+.list.cross {
+  text-decoration: line-through;
 }
 
 .containers input {
@@ -84,8 +64,12 @@ input {
   border: none;
 }
 
-.line {
-  text-decoration: line-through;
+.task {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e2dbdb;
+  padding-left: 24px;
+  position: relative;
 }
 
 .move {
