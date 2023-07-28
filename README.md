@@ -80,32 +80,27 @@ In order to use this project.. Clone this repository to your desired folder by p
 
 ### Install <a name="install"></a>
 
--Install Webpack:
+Install dependencies:
 
-  npm install -D webpack webpack-cli
+  npm install
 
-NOTE: If you are running on Windows, you need to initialize npm to create package.json file.
-  
-  npm init -y
-
--Install Webpack Server:
-
-  npm install -D webpack-dev-server
 
 ### Usage <a name="usage"></a>
 
 -Run
 
-npm run build
+  npm run build
 
-then
+-then
 
-npm run dev
+  npm run dev
 
 
 ### Run tests <a name="run tests"></a>
 
- You can check if your linter configuration is correct using the [check-linters-config](https://github.com/microverseinc/linters-config/blob/master/scripts) script.
+To test this application, run:
+
+  npm test
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
