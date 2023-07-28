@@ -40,4 +40,10 @@ describe('run add test', () => {
     const task = JSON.parse(localStorage.getItem('tasksItem'));
     expect(task[1].description).toBe(editTask);
   });
+
+  test('Should update the completed task', () => {
+    MyTask.completed(1, true);
+    const task = JSON.parse(localStorage.getItem('tasksItem'));
+    expect(task[0].completed).toBe(true);
+  });
 });
