@@ -31,4 +31,25 @@ describe('run add test', () => {
     const task = JSON.parse(localStorage.getItem('tasksItem'));
     expect(task.length).toBe(0);
   });
+
+  test('Should be able to edit the task', () => {
+    tasksItem.addTask();
+    new MyTask('tasksItem').addTask();
+    const editTask = 'Configure the gyroscope';
+    MyTask.updateTask(1, editTask);
+    const task = JSON.parse(localStorage.getItem('tasksItem'));
+    expect(task[1].description).toBe(editTask);
+  });
+
+  test('Should update the completed task', () => {
+    MyTask.completed(1, true);
+    const task = JSON.parse(localStorage.getItem('tasksItem'));
+    expect(task[0].completed).toBe(true);
+  });
+
+  test('Should remove all completed tasks', () => {
+    MyTask.clearCompleted();
+    const task = JSON.parse(localStorage.getItem('tasksItem'));
+    expect(task[0].completed).toBe(false);
+  });
 });

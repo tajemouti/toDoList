@@ -96,7 +96,7 @@ Install dependencies:
   npm run dev
 
 
-### Run tests <a name="run tests"></a>
+### Run tests <a name="run-tests"></a>
 
 To test this application, run:
 
