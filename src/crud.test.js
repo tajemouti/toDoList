@@ -46,4 +46,10 @@ describe('run add test', () => {
     const task = JSON.parse(localStorage.getItem('tasksItem'));
     expect(task[0].completed).toBe(true);
   });
+
+  test('Should remove all completed tasks', () => {
+    MyTask.clearCompleted();
+    const task = JSON.parse(localStorage.getItem('tasksItem'));
+    expect(task[0].completed).toBe(false);
+  });
 });
